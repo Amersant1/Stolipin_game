@@ -1,0 +1,80 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.background-container {
+    position: relative;
+    height: 100%;
+    background-image: url('static/stolipin.jpg');
+    background-size: cover; /* Растягиваем картинку на всю доступную область */
+    background-position: center; /* Центрируем картинку */
+    z-index: 0; /* Убеждаемся, что задний фон находится за слайдерами */
+}
+
+.timer {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: white;
+    font-size: 24px;
+}
+
+.button-container {
+    position: absolute;
+    top: 60px; /* Помещаем контейнер кнопок внизу экрана */
+    right: 20px;
+}
+
+button {
+    margin-right: 10px;
+}
+
+
+.slider-container {
+    position: absolute;
+    top: 20px;
+    z-index: 1; /* Добавляем z-index */
+    color:white;
+    left: 20px;
+}
+
+.slider {
+    width: 200px;
+}
+/* 
+.slider::-webkit-slider-thumb {
+    display: none; Удаляем кружочек у ползунков */
+/* } */
+.description-window {
+    position: fixed;
+    top: 25%; /* Располагаем описание ровно по середине по вертикали */
+    left: 25%; /* Располагаем описание ровно по середине по горизонтали */
+    width: 50%; /* Ширина описания */
+    height: 50%; /* Высота описания */
+    background-color: #f0f0f0; /* Цвет фона описания */
+    border: 2px solid #ccc; /* Граница описания */
+    border-radius: 10px; /* Скругление углов описания */
+    padding: 20px; /* Отступы внутри описания */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень описания */
+    z-index: 9999; /* Поднимаем описание над другими элементами */
+    overflow: hidden; /* Обрезаем содержимое описания, если оно не помещается */
+}
+
+.description-window h2 {
+    margin-top: 0; /* Убираем верхний отступ у заголовка */
+}
+
+.description-window p {
+    margin-top: 10px; /* Отступ между заголовком и текстом */
+}
+
+.description-window ul {
+    list-style: none; /* Убираем маркеры у списка */
+    padding: 0; /* Убираем отступы у списка */
+}
+
+.description-window li {
+    margin-top: 10px; /* Отступ между пунктами списка */
+}
