@@ -56,8 +56,14 @@ function App() {
   }
 
   useEffect(() => {
-    stats = JSON.parse(getCookie("stolpin_stats"));
-    setDate(new Date(getCookie("stolpin_date")));
+    let statsCookie = getCookie("stolpin_stats");
+    if(statsCookie != undefined) {
+      stats = JSON.parse(statsCookie);
+    }
+    let dateCookie = getCookie("stolpin_date");
+    if(dateCookie != undefined) {
+      setDate(new Date(getCookie("stolpin_date")));
+    }
   }, []);
 
   return (
@@ -84,7 +90,7 @@ function App() {
         <div className='loader' style={{ left: "55%", top: "200px" }}>
           <div><div style={{ width: stats.liber + "%" }}/></div>
           <img src={liber}/>
-          <p>Либералы</p>
+          <p>Центристы</p>
         </div>
 
         <div className='loader' style={{ left: "10%", top: "270px" }}>
