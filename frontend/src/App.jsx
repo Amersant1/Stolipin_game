@@ -9,7 +9,7 @@ import commun from './assets/commun.svg'
 import './App.scss'
 import { setCookie, getCookie } from './cookies'
 
-import { events } from './events'
+import events from './events'
 import event from './event'
 
 Date.prototype.addDay = function() {
