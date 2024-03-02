@@ -105,6 +105,15 @@
     left: 20%;
     font-size: 19px;
   }
+  h1 {
+    position: absolute;
+    color: #1d1d1d;
+    font-size: 19px;
+    top: 15px;
+    left: calc(50% - 25px);
+    font-style: normal;
+    font-weight: 800;
+  }
 }
 
 .time-switcher {

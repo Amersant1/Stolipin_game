@@ -118,24 +118,28 @@ function App() {
           <div><div style={{ width: stats.commun + "%" }}/></div>
           <img src={commun}/>
           <p>Левые</p>
+          <h1>{stats.commun}/100</h1>
         </div>
 
         <div className='loader' style={{ left: "55%", top: "200px" }}>
           <div><div style={{ width: stats.liber + "%" }}/></div>
           <img src={liber}/>
           <p>Центристы</p>
+          <h1>{stats.liber}/100</h1>
         </div>
 
         <div className='loader' style={{ left: "10%", top: "270px" }}>
           <div><div style={{ width: stats.fashi + "%" }}/></div>
           <img src={fashi}/>
           <p>Правые</p>
+          <h1>{stats.fashi}/100</h1>
         </div>
 
         <div className='loader' style={{ left: "55%", top: "270px" }}>
           <div><div style={{ width: stats.tsar + "%" }}/></div>
           <img src={tsar}/>
           <p>Царь</p>
+          <h1>{stats.tsar}/100</h1>
         </div>
 
         <div className='header' style={{ left: "25%", top: "400px" }}>
