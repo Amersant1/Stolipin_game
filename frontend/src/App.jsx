@@ -17,6 +17,20 @@ Date.prototype.addDay = function() {
   date.setDate(date.getDate() + 1);
   return date;
 }
+function normal_format(dateText){
+  let mapa=dateText.split(".");
+  if (mapa[0].length==1){
+    mapa[0]="0"+mapa[0];
+  }
+  mapa[1]=Number(mapa[1])+1;
+  mapa[1]=mapa[1].toString();
+  if (mapa[1].length==1){
+    mapa[1]="0"+mapa[1];
+  }
+  dateText=mapa[0]+'.'+mapa[1]+'.'+mapa[2];
+  return dateText;
+}
+
 
 let stats = {commun: 50, liber: 50, fashi: 50, tsar: 50};
 let events = {};
