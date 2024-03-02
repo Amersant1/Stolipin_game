@@ -1,12 +1,13 @@
 export function getEvents() {
   let res = {};
+  let thisEvents = [...events];
 
   for(let date of dates) {
-    if(events.length == 0)
+    if(thisEvents.length == 0)
       break;
-    let eventId = Math.floor(Math.random() * events.length);
-    let event = events[eventId];
-    events.splice(eventId, 1);
+    let eventId = Math.floor(Math.random() * thisEvents.length);
+    let event = thisEvents[eventId];
+    thisEvents.splice(eventId, 1);
     res[date] = event;
   }
 
@@ -24,7 +25,7 @@ export const loses = {
   "commun": ["Ебать3", "Нахуй3"],
 }
 
-let events = [
+const events = [
   {
     "name": "Разрешить строительство жд дороги Санкт—Петербург — Новгород через кладбище",
     "text": "Разрешить строительство жд дороги Санкт—Петербург — Новгород через кладбище",
@@ -2165,7 +2166,7 @@ let events = [
   }
 ];
 
-let neccessaryEvents = [
+const neccessaryEvents = [
   {
     "text": "Тест",
     date: '02.02.1906',
@@ -2188,7 +2189,7 @@ let neccessaryEvents = [
   },
 ]
 
-export let conditionEvents = [
+export const conditionEvents = [
   {
     "condition": "stats.fashi>90",
     "text": "Черносотенцы массово сжигают мечети",

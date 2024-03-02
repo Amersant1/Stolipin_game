@@ -34,6 +34,7 @@ function normal_format(dateText){
 
 let stats = {commun: 50, liber: 50, fashi: 50, tsar: 50};
 let events = {};
+let thisConditionEvents = conditionEvents;
 function App() {
   const [values, setValues] = useState({speed: 0, date: new Date(1906, 1, 2)});
   function setDate(value) {
@@ -59,8 +60,6 @@ function App() {
   let dateText = `${values.date.toLocaleDateString('ru')}`;
 
   if(dateText in events) {
-    console.log(events[dateText])
-    console.log(events)
     clearTimeout(timeout);
     event(events[dateText].text, events[dateText].options, (statsChange) => {
       stats.commun += statsChange.commun;
@@ -87,17 +86,17 @@ function App() {
       });
     }
   }
-  for(let conditionEventIndex in conditionEvents) {
-    if(eval(conditionEvents[conditionEventIndex].condition)) {
+  for(let conditionEventIndex in thisConditionEvents) {
+    if(eval(thisConditionEvents[conditionEventIndex].condition)) {
       clearTimeout(timeout);
-      event(conditionEvents[conditionEventIndex].text, [{...conditionEvents[conditionEventIndex], text: 'OK'}], (statsChange) => {
+      event(thisConditionEvents[conditionEventIndex].text, [{...thisConditionEvents[conditionEventIndex], text: 'OK'}], (statsChange) => {
         stats.commun += statsChange.commun;
         stats.liber += statsChange.liber;
         stats.fashi += statsChange.fashi;
         stats.tsar += statsChange.tsar;
         setDate(values.date.addDay());
       });
-      conditionEvents.splice(conditionEventIndex, 1);
+      thisConditionEvents.splice(conditionEventIndex, 1);
     }
   } 
 
@@ -181,6 +180,7 @@ function App() {
             stats = {liber: 50, tsar: 50, fashi: 50, commun: 50};
             setDateAndSpeed(new Date(1906, 1, 2), 0);
             events = getEvents();
+            thisConditionEvents = conditionEvents;
            }}>
           <p>Сброс</p>
         </button>
