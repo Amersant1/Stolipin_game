@@ -1,11 +1,17 @@
 export function getEvents() {
-  let excludedEvents = [];
   let res = {};
 
   for(let date of dates) {
-    let event = events[Math.floor(Math.random() * events.length)];
+    if(events.length == 0)
+      break;
+    let eventId = Math.floor(Math.random() * events.length);
+    let event = events[eventId];
+    events.splice(eventId, 1);
     res[date] = event;
-    excludedEvents.push(event.name);
+  }
+
+  for(let neccessaryEvent of neccessaryEvents) {
+    res[neccessaryEvent.date] = neccessaryEvent;
   }
 
   return res;
@@ -18,20 +24,18 @@ export const loses = {
   "commun": ["Ебать3", "Нахуй3"],
 }
 
-const events = [
+let events = [
   {
     "name": "Разрешить строительство жд дороги Санкт—Петербург — Новгород через кладбище",
     "text": "Разрешить строительство жд дороги Санкт—Петербург — Новгород через кладбище",
     "options": [
       {
-        'text':"test for liber",
         "tsar": -1,
         "fashi": -3,
         "liber": 1,
         "commun": 4
       },
       {
-        'text':"test for tsar",
         "tsar": 1,
         "fashi": 3,
         "liber": -1,
@@ -551,11 +555,6 @@ const events = [
         "commun": 4
       },
       {
-        'text':"test for commun",
-        "liber":0,
-        "tsar":-10,
-        "fashi":-10,
-        "commun":15,
         "text": "нет",
         "tsar": 1,
         "fashi": 5,
@@ -1029,11 +1028,6 @@ const events = [
     "text": "Переименовать Варшаву в Суворовград",
     "options": [
       {
-        'text':"test for liber",
-        "liber":5,
-        "tsar":-10,
-        "fashi":-10,
-        "commun":3,
         "text": "да",
         "tsar": 1,
         "fashi": 5,
@@ -1041,11 +1035,6 @@ const events = [
         "commun": -4
       },
       {
-        'text':"test for tsar",
-        "liber":-5,
-        "tsar":10,
-        "fashi":10,
-        "commun":-3,
         "text": "нет",
         "tsar": -1,
         "fashi": -5,
@@ -1066,11 +1055,6 @@ const events = [
         "commun": 3
       },
       {
-        'text':"test for commun",
-        "liber":0,
-        "tsar":-10,
-        "fashi":-10,
-        "commun":15,
         "text": "нет",
         "tsar": 2,
         "fashi": 2,
@@ -1104,11 +1088,6 @@ const events = [
     "text": "Изъят великокняжеские дворцы под гимназии",
     "options": [
       {
-        'text':"test for liber",
-        "liber":5,
-        "tsar":-10,
-        "fashi":-10,
-        "commun":3,
         "text": "да",
         "tsar": -4,
         "fashi": -1,
@@ -1116,11 +1095,6 @@ const events = [
         "commun": 5
       },
       {
-        'text':"test for tsar",
-        "liber":-5,
-        "tsar":10,
-        "fashi":10,
-        "commun":-3,
         "text": "нет",
         "tsar": 4,
         "fashi": 1,
@@ -1141,11 +1115,6 @@ const events = [
         "commun": -3
       },
       {
-        'text':"test for commun",
-        "liber":0,
-        "tsar":-10,
-        "fashi":-10,
-        "commun":15,
         "text": "нет",
         "tsar": 0,
         "fashi": -2,
@@ -2195,6 +2164,129 @@ const events = [
     ]
   }
 ];
+
+let neccessaryEvents = [
+  {
+    "text": "Тест",
+    date: '02.02.1906',
+    "options": [
+      {
+        'text':"test for liber",
+        "tsar": -1,
+        "fashi": -3,
+        "liber": 1,
+        "commun": 4
+      },
+      {
+        'text':"test for tsar",
+        "tsar": 1,
+        "fashi": 3,
+        "liber": -1,
+        "commun": -4
+      }
+    ]
+  },
+]
+
+export let conditionEvents = [
+  {
+    "condition": "stats.fashi>90",
+    "text": "Черносотенцы массово сжигают мечети",
+    fashi: +2,
+    liber: -5,
+    commun: -5,
+    tsar: -1
+  },
+  {
+    "condition": "stats.fashi>80",
+    "text": "Массовые еврейские погромы",
+    fashi: +1,
+    liber: -4,
+    commun: -5,
+    tsar: -1
+  },
+  {
+    "condition": "stats.fashi<20",
+    "text": "Казачий бунт в Уральске",
+    fashi: -5,
+    liber: -5,
+    commun: 0,
+    tsar: -5
+  },
+  {
+    "condition": "stats.fashi<5",
+    "text": "Царь то не настоящий! Народ штурмует зимний",
+    fashi: 10,
+    liber: 10,
+    commun: 10,
+    tsar: -100
+  },
+  {
+    "condition": "stats.liber>85",
+    "text": "Михаил с Думой готовят переворот",
+    fashi: -5,
+    liber: 2,
+    commun: 1,
+    tsar: -15
+  },
+  {
+    "condition": "stats.liber>95",
+    "text": "Михаил с Думой свергли царя",
+    fashi: -5,
+    liber: 20,
+    commun: 10,
+    tsar: -100
+  },
+  {
+    "condition": "stats.liber<20",
+    "text": "Дума ставит вопрос об отречении царя",
+    fashi: -5,
+    liber: 3,
+    commun: 5,
+    tsar: -100
+  },
+  {
+    "condition": "stats.commun>90",
+    "text": "Дума отменяет цензуру печати",
+    fashi: -5,
+    liber: 5,
+    commun: 5,
+    tsar: -5
+  },
+  {
+    "condition": "stats.commun<5",
+    "text": "Революция в Петраграде!",
+    fashi: -100,
+    liber: 5,
+    commun: 5,
+    tsar: -100
+  },
+  {
+    "condition": "stats.tsar>90",
+    "text": "Распутин назначен председателем Думы!",
+    fashi: -10,
+    liber: -20,
+    commun: -20,
+    tsar: 20
+  },
+  {
+    "condition": "stats.tsar<20",
+    "text": "Царь недоволен!",
+    fashi: -5,
+    liber: -10,
+    commun: -10,
+    tsar: -5
+  },
+  {
+    "condition": "stats.tsar<5",
+    "text": "Столыпин уволен",
+    fashi: -100,
+    liber: -100,
+    commun: -100,
+    tsar: 5
+  }
+]
+
 
 const dates =  [
   "19.06.1909", "21.02.1906", "29.09.1908", "02.08.1907", "07.02.1906", "27.08.1906", "25.12.1907", "07.08.1909", "20.05.1907", "22.01.1906",

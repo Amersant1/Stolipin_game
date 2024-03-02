@@ -9,7 +9,7 @@ import commun from './assets/commun.svg'
 import './App.scss'
 import { setCookie, getCookie } from './cookies'
 
-import { getEvents, loses } from './events'
+import { getEvents, loses, conditionEvents } from './events'
 import event from './event'
 
 Date.prototype.addDay = function() {
@@ -59,6 +59,8 @@ function App() {
   let dateText = `${values.date.toLocaleDateString('ru')}`;
 
   if(dateText in events) {
+    console.log(events[dateText])
+    console.log(events)
     clearTimeout(timeout);
     event(events[dateText].text, events[dateText].options, (statsChange) => {
       stats.commun += statsChange.commun;
@@ -85,6 +87,19 @@ function App() {
       });
     }
   }
+  for(let conditionEventIndex in conditionEvents) {
+    if(eval(conditionEvents[conditionEventIndex].condition)) {
+      clearTimeout(timeout);
+      event(conditionEvents[conditionEventIndex].text, [{...conditionEvents[conditionEventIndex], text: 'OK'}], (statsChange) => {
+        stats.commun += statsChange.commun;
+        stats.liber += statsChange.liber;
+        stats.fashi += statsChange.fashi;
+        stats.tsar += statsChange.tsar;
+        setDate(values.date.addDay());
+      });
+      conditionEvents.splice(conditionEventIndex, 1);
+    }
+  } 
 
   useEffect(() => {
     let statsCookie = getCookie("stolpin_stats");
