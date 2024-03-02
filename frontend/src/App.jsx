@@ -17,6 +17,20 @@ Date.prototype.addDay = function() {
   date.setDate(date.getDate() + 1);
   return date;
 }
+function normal_format(dateText){
+  let mapa=dateText.split(".");
+  if (mapa[0].length==1){
+    mapa[0]="0"+mapa[0];
+  }
+  mapa[1]=Number(mapa[1])+1;
+  mapa[1]=mapa[1].toString();
+  if (mapa[1].length==1){
+    mapa[1]="0"+mapa[1];
+  }
+  dateText=mapa[0]+'.'+mapa[1]+'.'+mapa[2];
+  return dateText;
+}
+
 
 let stats = {commun: 50, liber: 50, fashi: 50, tsar: 50};
 function App() {
@@ -43,7 +57,8 @@ function App() {
   }, values.speed == 2 ? 300 : 1000);
 
   let dateText = `${values.date.getDate()}.${values.date.getMonth()}.${values.date.getFullYear()}`;
-
+  dateText=normal_format(dateText)
+  console.log(dateText)
   if(dateText in events) {
     clearTimeout(timeout);
     event(events[dateText].name, events[dateText].text, events[dateText].options, (statsChange) => {
@@ -73,7 +88,7 @@ function App() {
       </div>
       <div id='menu'>
         
-        <p id='date'>{`${values.date.getDate()}.${values.date.getMonth()}.${values.date.getFullYear()}`}</p>
+        <p id='date'>{normal_format(`${values.date.getDate()}.${values.date.getMonth()}.${values.date.getFullYear()}`)}</p>
 
         <div className='header' style={{ left: "25%", top: "100px" }}>
           <p>Контроль государства</p>
