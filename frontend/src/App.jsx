@@ -11,6 +11,12 @@ import { setCookie, getCookie } from './cookies'
 
 import communLose from './assets/loses/commun-lose.webp'
 import communWin from './assets/loses/commun-win.webp'
+import fashiLose from './assets/loses/fashi-lose.webp'
+import fashiWin from './assets/loses/fashi-win.webp'
+import liberLose from './assets/loses/liber-lose.webp'
+import liberWin from './assets/loses/liber-win.webp'
+import tsarLose from './assets/loses/tsar-lose.webp'
+import tsarWin from './assets/loses/tsar-win.webp'
 
 import { getEvents, loses, conditionEvents } from './events'
 import { event, eventImg } from './event'
@@ -18,12 +24,12 @@ import { event, eventImg } from './event'
 const images = {
   'commun-lose': communLose,
   'commun-win': communWin,
-  'fashi-lose': stolipin,
-  'fashi-win': stolipin,
-  'liber-lose': stolipin,
-  'liber-win': stolipin,
-  'tsar-lose': stolipin,
-  'tsar-win': stolipin,
+  'fashi-lose': fashiLose,
+  'fashi-win': fashiWin,
+  'liber-lose': liberLose,
+  'liber-win': liberWin,
+  'tsar-lose': tsarLose,
+  'tsar-win': tsarWin,
 }
 
 Date.prototype.addDay = function() {
@@ -46,7 +52,8 @@ function normal_format(dateText){
 }
 
 
-let stats = {commun: 100, liber: 50, fashi: 50, tsar: 50};
+let stats = {commun: 50, liber: 50, fashi: 50, tsar: 50};
+let coeff = {commun: 2.5, liber: 1.5, fashi: 2, tsar: 3};
 let events = {};
 let thisConditionEvents = conditionEvents;
 function App() {
@@ -75,7 +82,6 @@ function App() {
 
   let isLose = false;
   for(let lose of ["commun", "liber", "fashi", "tsar"]) {
-    console.log(stats[lose], "lose");
     if(stats[lose] <= 0) {
       isLose = true;
       clearTimeout(timeout);
@@ -97,22 +103,21 @@ function App() {
   if(dateText in events) {
     clearTimeout(timeout);
     event(events[dateText].text, events[dateText].options, (statsChange) => {
-      stats.commun += statsChange.commun;
-      stats.liber += statsChange.liber;
-      stats.fashi += statsChange.fashi;
-      stats.tsar += statsChange.tsar;
+      stats.commun += statsChange.commun * coeff.commun;
+      stats.liber += statsChange.liber * coeff.liber;
+      stats.fashi += statsChange.fashi * coeff.fashi;
+      stats.tsar += statsChange.tsar * coeff.tsar;
       setDate(values.date.addDay());
     });
   }
   for(let conditionEventIndex in thisConditionEvents && !isLose) {
-    console.log("condition");
     if(eval(thisConditionEvents[conditionEventIndex].condition)) {
       clearTimeout(timeout);
       event(thisConditionEvents[conditionEventIndex].text, [{...thisConditionEvents[conditionEventIndex], text: 'OK'}], (statsChange) => {
-        stats.commun += statsChange.commun;
-        stats.liber += statsChange.liber;
-        stats.fashi += statsChange.fashi;
-        stats.tsar += statsChange.tsar;
+        stats.commun += statsChange.commun * coeff.commun;
+        stats.liber += statsChange.liber * coeff.liber;
+        stats.fashi += statsChange.fashi * coeff.fashi;
+        stats.tsar += statsChange.tsar * coeff.tsar;
         setDate(values.date.addDay());
       });
       thisConditionEvents.splice(conditionEventIndex, 1);

@@ -2421,7 +2421,7 @@ export const conditionEvents = [
     tsar: -5
   },
   {
-    "condition": "stats.tsar<5",
+    "condition": "stats.tsar<10",
     "text": "Столыпин уволен",
     fashi: -100,
     liber: -100,
