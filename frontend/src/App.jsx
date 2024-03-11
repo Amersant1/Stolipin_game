@@ -33,9 +33,14 @@ const images = {
 }
 
 Date.prototype.addDay = function() {
+  try{
   let date = new Date(this.valueOf());
   date.setDate(date.getDate() + 1);
   return date;
+  }
+  catch(err){
+    console.log(err);
+  }
 }
 function normal_format(dateText){
   let mapa=dateText.split(".");
@@ -101,6 +106,7 @@ function App() {
     }
   }
   if(dateText in events) {
+    console.log(events[dateText])
     clearTimeout(timeout);
     event(events[dateText].text, events[dateText].options, (statsChange) => {
       stats.commun += statsChange.commun * coeff.commun;
