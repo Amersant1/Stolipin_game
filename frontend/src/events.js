@@ -2182,6 +2182,7 @@ const neccessaryEvents = [
         "tsar": 5
       },
       {
+        "text":"нет",
         "fashi": -5,
         "liber": 5,
         "commun": 10,
